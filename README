@@ -1,0 +1,45 @@
+Program irbem_ex
+====================
+
+This software is to demonstrate how to call IRBEM subroutines fron c++
+It was only used on Ubuntu 20 64bit with gcc 9.3.0, however nothing indicates that it may have issues in compilation or execution on other Linux systems.
+
+
+COMPILATION:
+
+In order to successfully compile, one must have make, gcc with gfortran and the IRBEM library on the system. 
+IRBEM environment variable must be set to the location with the IRBEM shared library, named libirbem.so. 
+The standard IRBEM compilation produces shared library named differently, 
+however it is easy to create a symbolic link in order to have a library correctly named for compilation of this program.
+
+The program can be compiled by issuing this command:
+make
+In case any issues were encountered, issue the command:
+make clean all
+Executable is called 'irbem_ex' and is created in the subdirectory 'bin' where the source is code is located.
+
+EXECUTION:
+
+The program needs one input parameter - the input data file:
+./bin/renellabeppo input.dat
+
+The input file must be ASCII file of the following structure: 9 free format header lines, and then the time series. As example, one part of the file used for the analysis is shown here below:
+
+# Number of data points:    9849
+# TIMDAYRF             :    1996-Jul-24 00:00:00.00
+# TIMDAYRF (JD)        :    2450288.5
+#
+#         TIME               DATA             ERROR         X Position      Y Position      Z Position   
+#          (s)            (Counts/s)       (Counts/s)          (Km)            (Km)            (Km)      
+#
+     50288.0241435184         0.625000         0.279509       -5571.069       -4197.793          48.510
+     50288.0242592595         0.800000         0.282843       -5525.275       -4257.721          53.710
+The program reads dynamically any amount of data (limited by the RAM availability).
+
+The output file has one header line and the time series. An example is presented here below:
+AMJD time         X1      X2      X3   I_cts  AP8(>10MeV)
+50288.0241435184   -0.9  -0.66    0.01     0.6 -1.000e+31
+50288.0242592595   -0.9  -0.67    0.01     0.8 -1.000e+31
+50288.0243750000   -0.9  -0.68    0.01     1.1 -1.000e+31
+50288.0244907406   -0.9  -0.69    0.01     0.8 -1.000e+31
+50288.0246064817   -0.8  -0.70    0.01     0.9 -1.000e+31
